@@ -148,7 +148,7 @@ int dispatch_threads(FILE* in_file, FILE* out_file, int key, int threads_require
     DWORD   dwThreadId;
     HANDLE  hThread;
 
-    // continue dispatching threads untill 0 threads are needed
+    // continue dispatching threads until 0 threads are needed
     while (threads) {
 
         // algorithm to calaculate how many rows each thread is assigned

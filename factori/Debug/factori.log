@@ -1,0 +1,23 @@
+﻿  Queue.c
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(63,55): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(64,56): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(83,64): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(98,46): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(139,68): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(144,21): warning C4133: 'return': incompatible types - from 'NODE *' to 'QUEUE *'
+  main.c
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(48,9): warning C4101: 'j': unreferenced local variable
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(108,87): warning C4047: 'return': 'int *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(127,71): warning C4047: 'return': 'int *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(141,39): warning C4047: 'function': 'const char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(141,36): warning C4024: 'atoi': different types for formal and actual parameter 1
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(154,92): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(154,89): warning C4024: 'InitializeQueue': different types for formal and actual parameter 4
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(157,106): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(157,103): warning C4024: 'create_numbers_array': different types for formal and actual parameter 4
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(160,60): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(160,57): warning C4024: 'open_file': different types for formal and actual parameter 2
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(189,44): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(189,41): warning C4024: 'close_file': different types for formal and actual parameter 2
+  Generating Code...
+  factori.vcxproj -> C:\Users\neomi\source\repos\Operating_Systems_Ex_3\Debug\factori.exe

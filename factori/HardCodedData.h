@@ -26,3 +26,4 @@ Contains specific measured sizes and exit codes of the project.
 #define INITIAL_SIZE							10 //for line in the input file
 #define ARGS_REQUIRED							5
 #define THREAD_WAIT_TIME						20000
+
