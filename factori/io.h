@@ -16,7 +16,6 @@ Header for io.c
 #include <windows.h>
 #include "HardCodedData.h"
 #include "threadManager.h"
-#include "decrypte.h"
 
 
 //---------------------------------------------------------------//

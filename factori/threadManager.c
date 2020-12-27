@@ -11,207 +11,168 @@ creates and dispatches threads.
 
 #include "threadManager.h"
 
-
 //---------------------------------------------------------------//
 // -------------------------DECLARATIONS------------------------ //
 //---------------------------------------------------------------//
 
-/*--------------------------------------------------------------------------------------------
-DESCRIPTION - Counting the elements of an array (help function).
-
-PARAMETERS - array to count it's elements.
-
-RETURN - number of elements.
-    --------------------------------------------------------------------------------------------*/
-int count_elements(int* array);
-
-
-/*--------------------------------------------------------------------------------------------
-DESCRIPTION - Calls a wait for single obj on the newly created thread. when done executes free_thread_and_data
-
-PARAMETERS - hThread: handle to the thread
-             pData: pointer to the data struct of that thread
-
-RETURN - void
-    --------------------------------------------------------------------------------------------*/
-void wait_for_thread_execution_and_free(HANDLE hThread, PTHREADDATA pData);
-
-
-/*--------------------------------------------------------------------------------------------
-DESCRIPTION - Closes the handle of the thread and HeadFree's it's data.
-
-PARAMETERS - hThread: handle to the thread
-             pData: pointer to the data struct of that thread
-
-RETURN - void
-    --------------------------------------------------------------------------------------------*/
-void free_thread_and_data(HANDLE hthread, PTHREADDATA pdata);
-
-
-/*--------------------------------------------------------------------------------------------
-DESCRIPTION - Function every new thread is called to. reads, encrypte\decrypte and writes every line assigned to that thread.
-
-PARAMETERS - lpParam: holds the data structure of pData for that thread
-
-RETURN - signal exit code.
-    --------------------------------------------------------------------------------------------*/
-DWORD WINAPI thread_main(LPVOID lpParam);
-
-
-/*--------------------------------------------------------------------------------------------
-DESCRIPTION - Counts the rows and assigns parameters for every thread to be created. then creates threads one by one.
-
-PARAMETERS - in_file: input text file
-             out_file: output target file
-             key: For thr Caesar system coding
-             threads_required: Number of threads to assign. If there are mor threads than rows, the last ones will be created 
-                               but do nothing.
-             rows_endings: Hold the length of every linr in the text
-             mode: e for encryption, d for decryption
-
-RETURN - status code
-    --------------------------------------------------------------------------------------------*/
-int dispatch_threads(FILE* in_file, FILE* out_file, int key, int threads_required, int* rows_endings, char mode);
 
 //---------------------------------------------------------------//
 // ------------------------IMPLEMENTAIONS------------------------//
 //---------------------------------------------------------------//
-void free_thread_and_data(HANDLE hthread, PTHREADDATA pdata) {
-    // closing handle and free pData struct
-    CloseHandle(hthread);
-    if (pdata != NULL)
-    {
-        HeapFree(GetProcessHeap(), 0, pdata);
-        pdata = NULL;    // Ensure address is not reused.
-    }
-}
 
-
-void wait_for_thread_execution_and_free(HANDLE hThread, PTHREADDATA pData) {
-    // wait for the thread code
-    DWORD dwWaitResult = WaitForSingleObject(
-        hThread,    
-        THREAD_WAIT_TIME); 
-    free_thread_and_data(hThread, pData);
-    if (0 != dwWaitResult) {
-        // prints the error of the thread by the dwWaitResult code
-        error_handler(dwWaitResult);
-    }
-}
-
-
-DWORD WINAPI thread_main(LPVOID lpParam)
+int* break_into_primes(int n, int* p_prime_numbers,int* secondary_prime_number_array, int* p_prime_numbers_size)
 {
-    PTHREADDATA thread_params = (PTHREADDATA)lpParam;
-    int loop = 1, cur_row =0;
-    char* line = NULL;
+    int prime_numbers_index = *p_prime_numbers_size, prime_number = n;
+    int i = 3;
+    if (NULL == (p_prime_numbers = (int*)malloc(p_prime_numbers, prime_numbers_index * sizeof(int)))) return p_prime_numbers;
 
-    // run as long as assigned lines are left
-    while (cur_row != (thread_params->rows))
+    while ((prime_number % 2) == 0)
     {
-        // read the line
-        if (NULL == (line = read_line(thread_params->in_file, &loop))) {
-            free(line);
-            error_handler(ERROR_CODE_ALLOCATION);
-        }
-        else {
-            // decrypte or encrypte the line
-            if (NULL == (line = decrypte_line(line, thread_params->key, thread_params->mode))) {
-                free(line);
-                error_handler(ERROR_CODE_ALLOCATION);
-            }
-            else {
-                //write the line
-                if (0 != write_new_line_to_output(thread_params->out_file, line)) error_handler(ERROR_CODE_WRITE);
-                cur_row++;
-            }
-        }
+        if (NULL == (secondary_prime_number_array = (int*)realloc(p_prime_numbers, prime_numbers_index * sizeof(int)))) return p_prime_numbers;
+        *(p_prime_numbers + prime_numbers_index - 1) = 2;
+        prime_number = prime_number / 2;
+        printf("Number %d of prime %d is %d\n", prime_numbers_index, n, 2);
+        p_prime_numbers = secondary_prime_number_array;
+        prime_numbers_index++;
     }
+
+    while (i <= sqrt(prime_number))
+    {
+        while ((prime_number % i) == 0)
+        {
+            if (NULL == (secondary_prime_number_array = (int*)realloc(p_prime_numbers, prime_numbers_index * sizeof(int)))) return p_prime_numbers;
+            *(p_prime_numbers + prime_numbers_index - 1) = i;
+            prime_number = prime_number / i;
+            printf("Number %d of prime %d is %d\n", prime_numbers_index, n, i);
+            prime_numbers_index++;
+            p_prime_numbers = secondary_prime_number_array;
+        }
+        i = i + 2;
+    }
+
+    if (prime_number > 2)
+    {
+        if (NULL == (secondary_prime_number_array = (int*)realloc(p_prime_numbers, prime_numbers_index * sizeof(int)))) return p_prime_numbers;
+        *(p_prime_numbers + prime_numbers_index - 1) = prime_number;
+        printf("Number %d of prime %d is %d\n", prime_numbers_index, n, prime_number);
+        p_prime_numbers = secondary_prime_number_array;
+    }
+    else prime_numbers_index--;
+    *p_prime_numbers_size = prime_numbers_index;
+    return p_prime_numbers;
+}
+
+void wait_for_threads_execution_and_free(HANDLE* p_threads, int number_of_threads)
+{
+    int i = 0;
+    DWORD dwEvent;
+
+    dwEvent = WaitForMultipleObjects(
+        number_of_threads,                                          // number of objects in array
+        p_threads,                                                  // array of objects
+        TRUE,                                                       // wait for all object
+        10 * number_of_threads * THREAD_WAIT_TIME);                 // long wait period for all threads
+    
+    // Close event handles
+    for (i = 0; i < number_of_threads; i++)
+        CloseHandle(*(p_threads + i));
+    printf("freed Thread number: %d\n", i + 1);
+
+}
+
+int dispatch_threads(HANDLE* p_threads, LOCK* p_lock, QUEUE* p_queue, int number_of_threads, int* p_number_of_tasks, HANDLE* p_start_line_sephamore, char* tasks_file_name)
+{
+    int i = 0, j = 0;
+
+    THREAD Data;
+    THREAD* pData = &Data;
+    DWORD dwThreadId;
+
+
+    pData->p_lock = p_lock;
+    pData->p_queue = p_queue;
+    pData->p_number_of_tasks = p_number_of_tasks;
+    pData->start_line_sephamore = p_start_line_sephamore;
+    pData->tasks_file_name = tasks_file_name;
+
+    // continue dispatching threads until 0 threads are needed
+    for (i = 0; i < number_of_threads; i++)
+    {
+        pData->thread_number = i + 1;
+
+        // create thread
+        *(p_threads + i) = CreateThread(
+            NULL,                                           // default security attributes
+            0,                                              // use default stack size  
+            thread_main,                                    // thread function name
+            pData,                                          // argument to thread function 
+            0,                                              // use default creation flags 
+            &dwThreadId);                                   // returns the thread identifier 
+
+        if (NULL == *(p_threads + i))
+        {
+            CloseHandle(p_threads);
+            error_handler(ERROR_CODE_THREAD);
+        }
+        printf("dispatched Thread number: %d\n", i + 1);
+
+    }
+
+    // Release start line Sephamore
+    ReleaseSemaphore(*p_start_line_sephamore, number_of_threads, NULL);
+    printf("start line semaphore released\n");
+
+    // escorting the thread
+    wait_for_threads_execution_and_free(p_threads, number_of_threads);
+    printf("freed all threads\n");
+
     return SUCCESS_CODE;
 }
 
+DWORD WINAPI thread_main(LPVOID lpParam)
+{
+    THREAD* thread_params = (THREAD*)lpParam;
+    int curr_task_num = 0, n = 0, number_of_digits = 0, prime_numbers_size = 1, thread_num = thread_params->thread_number;
+    int* p_number_of_digits = &number_of_digits, p_prime_numbers, secondary_prime_number_array, p_prime_numbers_size = &prime_numbers_size;
+    char* line = NULL;
 
-int count_elements(int* array) {
-    int i = 0;
-    while (*(array + i) != '\0') {
-        i++;
+    // Wait at the starting line for all threads to be created
+    WaitForSingleObject(*(thread_params->start_line_sephamore), thread_params->p_lock->number_of_threads * THREAD_WAIT_TIME);
+
+    // Run as long as there are more tasks left
+    while (*(thread_params->p_number_of_tasks))
+    {
+        p_prime_numbers = NULL;
+        secondary_prime_number_array = NULL;
+
+        // Get the next prioritized task
+        queue_lock(thread_params->p_lock);
+        curr_task_num = Pop(thread_params->p_queue)->priority;
+        *(thread_params->p_number_of_tasks) -= 1;
+        queue_release(thread_params->p_lock);
+        printf("Thread %d finished with the queue\n", thread_num);
+
+        // Get the task
+        read_lock(thread_params->p_lock);
+        n = GetTask(thread_params->tasks_file_name, curr_task_num, p_number_of_digits);
+        read_release(thread_params->p_lock);
+        printf("Thread %d finished reading task number: %d\n", thread_num, *(thread_params->p_number_of_tasks));
+
+        // Calculate the prime numbers
+        if (NULL == (p_prime_numbers = break_into_primes(n, p_prime_numbers, secondary_prime_number_array, p_prime_numbers_size))) return p_prime_numbers;
+        printf("Thread %d broke into primes\n", thread_num);
+
+        // Write to the file
+        write_lock(thread_params->p_lock);
+        print_primes_to_file(thread_params->tasks_file_name, p_prime_numbers, prime_numbers_size, n, number_of_digits);
+        p_prime_numbers = NULL;
+        prime_numbers_size = 1;
+        write_release(thread_params->p_lock);
+        *p_number_of_digits = 0;
+        printf("Thread %d finished writing task number: %d\n", thread_num, *(thread_params->p_number_of_tasks));
+        free(p_prime_numbers);
+        free(secondary_prime_number_array);
     }
-    return i;
-}
 
-
-int dispatch_threads(FILE* in_file, FILE* out_file, int key, int threads_required, int* rows_endings, char mode) {
-    float rows_remaining = (float)count_elements(rows_endings);
-    int i = 0, threads = threads_required, thread_start, thread_end, busy=0;
-
-    PTHREADDATA pData;
-    DWORD   dwThreadId;
-    HANDLE  hThread;
-
-    // continue dispatching threads until 0 threads are needed
-    while (threads) {
-
-        // algorithm to calaculate how many rows each thread is assigned
-        int thread_rows = ceil(rows_remaining / threads);
-
-        // first thread
-        if (i == 0) {
-            thread_start = 0;
-            if ((fseek(in_file, (sizeof(char) * thread_start), SEEK_SET)) != 0) error_handler(ERROR_CODE_FILE);
-        }
-        else
-        {
-            thread_start = *(rows_endings + i - 1) + 1;
-        }
-
-        // i holds the number of line proccessed
-        i += thread_rows;
-        thread_end = *(rows_endings + i - 1);
-        
-        // allocate the struct of data to be passed to the thread
-        pData = (PTHREADDATA)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(THREADDATA));
-
-        if (NULL == pData)
-        {
-            HeapFree(pData, 0, pData);
-            error_handler(ERROR_CODE_FILE);
-        }
-
-        // assigning the data
-            pData->key = key;
-            pData->start = thread_start;
-            pData->end = thread_end;
-            pData->mode = mode;
-            pData->rows = thread_rows;
-            pData->in_file = in_file;
-            pData->out_file = out_file;
-
-        // safety lock
-        while (busy) { ; }
-
-        hThread = CreateThread(
-            NULL,                   // default security attributes
-            0,                      // use default stack size  
-            thread_main,            // thread function name
-            pData,                  // argument to thread function 
-            0,                      // use default creation flags 
-            &dwThreadId);           // returns the thread identifier 
-
-        if (NULL == hThread) {
-            free_thread_and_data(hThread, pData);
-            error_handler(ERROR_CODE_THREAD);
-        }
-        // locking
-        busy = 1;
-
-        // escorting the thread
-        wait_for_thread_execution_and_free(hThread, pData);
-
-        // unlocking
-        busy = 0;
-
-        rows_remaining -= thread_rows;
-        threads--;
-    }
     return SUCCESS_CODE;
 }

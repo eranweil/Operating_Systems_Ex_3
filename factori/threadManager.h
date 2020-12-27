@@ -14,9 +14,11 @@ Header file for decrypte.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "Queue.h"
+#include "Lock.h"
+#include "fileManager.h"
 #include "HardCodedData.h"
 #include "io.h"
-#include "decrypte.h"
 
 
 //---------------------------------------------------------------//
@@ -33,22 +35,7 @@ PARAMETERS - key: for Caesar encryption
              in_file: input file ptr
              out_file: output file ptr
     --------------------------------------------------------------------------------------------*/
-typedef struct ThreadData {
-    int key, start, end, rows;
-    char mode;
-    FILE* in_file;
-    FILE* out_file;
-} THREADDATA, * PTHREADDATA;
-
-/*--------------------------------------------------------------------------------------------
-DESCRIPTION - Counting the elements of an array (help function).
-
-PARAMETERS - array to count it's elements.
-
-RETURN - number of elements.
-    --------------------------------------------------------------------------------------------*/
-int count_elements(int* array);
-
+int* break_into_primes(int n, int* p_prime_numbers, int* secondary_prime_number_array, int* p_prime_numbers_size);
 
 /*--------------------------------------------------------------------------------------------
 DESCRIPTION - Calls a wait for single obj on the newly created thread. when done executes free_thread_and_data
@@ -58,29 +45,7 @@ PARAMETERS - hThread: handle to the thread
 
 RETURN - void
     --------------------------------------------------------------------------------------------*/
-void wait_for_thread_execution_and_free(HANDLE hThread, PTHREADDATA pData);
-
-
-/*--------------------------------------------------------------------------------------------
-DESCRIPTION - Closes the handle of the thread and HeadFree's it's data.
-
-PARAMETERS - hThread: handle to the thread
-             pData: pointer to the data struct of that thread
-
-RETURN - void
-    --------------------------------------------------------------------------------------------*/
-void free_thread_and_data(HANDLE hthread, PTHREADDATA pdata);
-
-
-/*--------------------------------------------------------------------------------------------
-DESCRIPTION - Function every new thread is called to. reads, encrypte\decrypte and writes every line assigned to that thread.
-
-PARAMETERS - lpParam: holds the data structure of pData for that thread
-
-RETURN - signal exit code.
-    --------------------------------------------------------------------------------------------*/
-DWORD WINAPI thread_main(LPVOID lpParam);
-
+void wait_for_threads_execution_and_free(HANDLE* p_threads, int number_of_threads);
 
 /*--------------------------------------------------------------------------------------------
 DESCRIPTION - Counts the rows and assigns parameters for every thread to be created. then creates threads one by one.
@@ -95,5 +60,13 @@ PARAMETERS - in_file: input text file
 
 RETURN - status code
     --------------------------------------------------------------------------------------------*/
-int dispatch_threads(FILE* in_file, FILE* out_file, int key, int threads_required, int* rows_endings, char mode);
+int dispatch_threads(HANDLE* p_threads, LOCK* p_lock, QUEUE* p_queue, int number_of_threads, int* p_number_of_tasks, HANDLE* start_line_sephamore, char* tasks_file_name);
 
+/*--------------------------------------------------------------------------------------------
+DESCRIPTION - Function every new thread is called to. reads, encrypte\decrypte and writes every line assigned to that thread.
+
+PARAMETERS - lpParam: holds the data structure of pData for that thread
+
+RETURN - signal exit code.
+    --------------------------------------------------------------------------------------------*/
+DWORD WINAPI thread_main(LPVOID lpParam);

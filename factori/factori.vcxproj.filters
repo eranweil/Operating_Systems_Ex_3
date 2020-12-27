@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="decrypte.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="io.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,11 +30,14 @@
     <ClCompile Include="Queue.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Lock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fileManager.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="decrypte.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HardCodedData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fileManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

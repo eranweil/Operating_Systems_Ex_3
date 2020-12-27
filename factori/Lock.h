@@ -28,18 +28,18 @@
 //-------------------------------------------------------------//
 
 
-void StartQueue(QUEUE * queue);
+LOCK* InitializeLock(LOCK* lock, int number_of_threads, int* p_reader_counter, HANDLE* p_mutex_file, HANDLE* p_sephamore_file, HANDLE* p_turnstile, HANDLE* p_queue_lock);
 
-void Push(QUEUE * queue, int priority);
+void read_lock(LOCK* lock);
 
-int Empty(QUEUE * queue);
+void read_release(LOCK* lock);
 
-NODE* Top(QUEUE* queue);
+void write_lock(LOCK* lock);
 
-NODE* Pop(QUEUE* queue);
+void write_release(LOCK* lock);
 
-void PrintQueue(QUEUE* queue);  //for debug
+void queue_lock(LOCK* lock);
 
-QUEUE* InitializeQueue(HANDLE priority_file, QUEUE* queue, int number_of_tasks, char* priority_file_name);
+BOOL queue_release(LOCK* lock);
 
-QUEUE* DestroyQueue(QUEUE* queue);
+LOCK* DestroyLock(LOCK* lock);

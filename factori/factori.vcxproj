@@ -139,17 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="decrypte.c" />
+    <ClCompile Include="fileManager.c" />
     <ClCompile Include="io.c" />
+    <ClCompile Include="Lock.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Queue.c" />
     <ClCompile Include="threadManager.c" />
     <ClCompile Include="WindowsFunctions.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="decrypte.h" />
+    <ClInclude Include="fileManager.h" />
     <ClInclude Include="HardCodedData.h" />
     <ClInclude Include="io.h" />
+    <ClInclude Include="Lock.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="threadManager.h" />
   </ItemGroup>

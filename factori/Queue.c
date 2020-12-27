@@ -20,7 +20,6 @@
 
 #include "HardCodedData.h"
 #include "io.h"
-#include "decrypte.h"
 #include "threadManager.h"
 #include "Queue.h"
 
@@ -99,35 +98,76 @@ void PrintQueue(QUEUE* queue)  //for debug
     }
 }
 
-QUEUE * InitializeQueue(FILE* priority_file, QUEUE * queue, int number_of_tasks, char* priority_file_name)
+QUEUE * InitializeQueue(HANDLE priority_file, QUEUE * queue, int number_of_tasks, char* priority_file_name)
 {
     
     int curr_priority, i = 0;
-    char curr_digit = '\0';
-
-    if (NULL == (priority_file = open_file(priority_file, priority_file_name, "r"))) return queue;
-
-    while ((curr_digit = fgetc(priority_file)) != EOF)
+    char* curr_char = NULL;
+    if (NULL == (curr_char = (char*)malloc(sizeof(char))))
     {
-        curr_priority = 0;
-        while (curr_digit != '\n')
-        {
-            curr_priority = ((10 * curr_priority) + (curr_digit - '0'));
-            curr_digit = fgetc(priority_file);
-        }
-        
-        Push(queue, curr_priority);
-        queue->number_of_tasks_in_queue++;
-        i++;
-
-        printf("%d\n", curr_priority); //for debug
-
-        //curr_digit = fgetc(file);
-        //curr_digit = fgetc(file);
+        printf("Memomry allocation failed\n");
+        return queue;
     }
 
-    if (0 != close_file(priority_file, priority_file_name)) return queue;
+    // Make sure file read works
+    if (FALSE == ReadFile(priority_file, curr_char, 1, NULL, NULL))
+    {
+        printf("couldn't open file to be read in WINAPI\n");
+        return ERROR_CODE_FILE;
+    }
+
+    //Stop at end of file
+    for (i = 0; i < number_of_tasks; i++)
+    {
+        curr_priority = 0;
+        //Stop at end of data in line
+        if (i != number_of_tasks - 1)
+        {
+            while (*curr_char != '\r')
+            {
+                curr_priority = ((10 * curr_priority) + (*curr_char - '0'));
+                if (FALSE == ReadFile(priority_file, curr_char, 1, NULL, NULL))
+                {
+                    printf("couldn't open file to be read in WINAPI\n");
+                    return ERROR_CODE_FILE;
+                }
+            }
+        }
+        if (i == number_of_tasks - 1)
+        {
+            while ((*curr_char != EOF) && (*curr_char != '\r'))
+            {
+                curr_priority = ((10 * curr_priority) + (*curr_char - '0'));
+                if (FALSE == ReadFile(priority_file, curr_char, 1, NULL, NULL))
+                {
+                    printf("couldn't open file to be read in WINAPI\n");
+                    return ERROR_CODE_FILE;
+                }
+            }
+        }
+        // In order to go to next line
+
+        if (FALSE == ReadFile(priority_file, curr_char, 1, NULL, NULL))
+        {
+            printf("couldn't open file to be read in WINAPI\n");
+            return ERROR_CODE_FILE;
+        }
+
+        if (FALSE == ReadFile(priority_file, curr_char, 1, NULL, NULL))
+        {
+            printf("couldn't open file to be read in WINAPI\n");
+            return ERROR_CODE_FILE;
+        }
+
+        //Push the priority into the queue
+        Push(queue, curr_priority);
+        queue->number_of_tasks_in_queue++;
+        printf("%d\n", curr_priority); //for debug
+    }
+    PrintQueue(queue);
+    free(curr_char);
     return queue;
+
 }
 
 QUEUE* DestroyQueue(QUEUE* queue)

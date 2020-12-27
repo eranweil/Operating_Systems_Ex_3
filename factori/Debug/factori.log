@@ -1,23 +1,21 @@
-﻿  Queue.c
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(63,55): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(64,56): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(83,64): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(98,46): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(139,68): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(144,21): warning C4133: 'return': incompatible types - from 'NODE *' to 'QUEUE *'
-  main.c
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(48,9): warning C4101: 'j': unreferenced local variable
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(108,87): warning C4047: 'return': 'int *' differs in levels of indirection from 'int'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(127,71): warning C4047: 'return': 'int *' differs in levels of indirection from 'int'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(141,39): warning C4047: 'function': 'const char *' differs in levels of indirection from 'char **'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(141,36): warning C4024: 'atoi': different types for formal and actual parameter 1
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(154,92): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(154,89): warning C4024: 'InitializeQueue': different types for formal and actual parameter 4
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(157,106): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(157,103): warning C4024: 'create_numbers_array': different types for formal and actual parameter 4
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(160,60): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(160,57): warning C4024: 'open_file': different types for formal and actual parameter 2
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(189,44): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(189,41): warning C4024: 'close_file': different types for formal and actual parameter 2
-  Generating Code...
+﻿  threadManager.c
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(27,64): warning C4047: 'function': 'size_t' differs in levels of indirection from 'int *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(27,49): warning C4024: 'malloc': different types for formal and actual parameter 1
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(27,86): warning C4020: 'malloc': too many actual parameters
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(145,31): warning C4047: '=': 'int' differs in levels of indirection from 'void *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(146,44): warning C4047: '=': 'int' differs in levels of indirection from 'void *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(162,76): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(162,61): warning C4024: 'break_into_primes': different types for formal and actual parameter 2
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(162,106): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(162,78): warning C4024: 'break_into_primes': different types for formal and actual parameter 3
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(162,128): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(162,108): warning C4024: 'break_into_primes': different types for formal and actual parameter 4
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(162,129): warning C4047: '=': 'int' differs in levels of indirection from 'int *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(162,130): warning C4047: '==': 'void *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(167,77): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(167,62): warning C4024: 'print_primes_to_file': different types for formal and actual parameter 2
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(168,31): warning C4047: '=': 'int' differs in levels of indirection from 'void *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(173,14): warning C4022: 'free': pointer mismatch for actual parameter 1
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(174,14): warning C4022: 'free': pointer mismatch for actual parameter 1
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(136,1): warning C4047: 'initializing': 'int' differs in levels of indirection from 'int *'
   factori.vcxproj -> C:\Users\neomi\source\repos\Operating_Systems_Ex_3\Debug\factori.exe

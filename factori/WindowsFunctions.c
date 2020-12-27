@@ -163,6 +163,8 @@
 //	);
 //}
 //
+//
+//
 //static HANDLE CreateThreadSimple(LPTHREAD_START_ROUTINE p_start_routine, LPDWORD p_thread_id)
 //{
 //	/* Should check for NULL pointers. Skipped for the sake of simplicity. */
