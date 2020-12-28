@@ -1,0 +1,11 @@
+126
+13
+17
+27
+476
+81
+25
+1337
+The prime factors of 13 are: 13
+The prime factors of 25 are: 5, 5
+The prime factors of 126 are: 2, (,./+0,+/, 3, 7
