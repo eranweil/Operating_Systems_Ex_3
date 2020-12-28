@@ -35,7 +35,7 @@ PARAMETERS - key: for Caesar encryption
              in_file: input file ptr
              out_file: output file ptr
     --------------------------------------------------------------------------------------------*/
-int* break_into_primes(int n, int* p_prime_numbers, int* secondary_prime_number_array, int* p_prime_numbers_size);
+int* break_into_primes(int n, int* p_prime_numbers, int* p_prime_numbers_size);
 
 /*--------------------------------------------------------------------------------------------
 DESCRIPTION - Calls a wait for single obj on the newly created thread. when done executes free_thread_and_data

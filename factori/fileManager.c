@@ -77,10 +77,10 @@ char* MakePrimeString(char* string_prime, char* string_buffer, int prime_numbers
 	int i = 0, j = 0, k = 0, curr_prime_number, prime_string_length = 0, prime_number_length = 0;
 
 	// it's enough to allocate the number of digits for each prime, multiplied by 3 for the commas and spaces. +1 for the '\0' symbol
-	if (NULL == (string_prime = (char*)malloc((((number_of_digits * prime_numbers_size) * 3) + 1) * sizeof(char)))) return ERROR_CODE_ALLOCATION;
+	if (NULL == (string_prime = (char*)malloc((((number_of_digits * prime_numbers_size) * 30) + 1) * sizeof(char)))) return ERROR_CODE_ALLOCATION;
 
 	// buffer for each string
-	if (NULL == (string_buffer = (char*)malloc((2 * number_of_digits) * sizeof(char)))) return ERROR_CODE_ALLOCATION;
+	if (NULL == (string_buffer = (char*)malloc((20 * number_of_digits) * sizeof(char)))) return ERROR_CODE_ALLOCATION;
 
 	for (i = 0; i < prime_numbers_size; i++)
 	{
@@ -166,6 +166,8 @@ int print_primes_to_file(char* tasks_file_name, int* prime_numbers, int prime_nu
 	if (STATUS_CODE_FAILURE == StringToFileWithCheck(tasks_file, string_2, string_len_2))
 	{
 		free(string_2);
+		free(string_buffer);
+		free(string_prime);
 		return STATUS_CODE_FAILURE;
 	};
 
@@ -176,6 +178,8 @@ int print_primes_to_file(char* tasks_file_name, int* prime_numbers, int prime_nu
 	if (STATUS_CODE_FAILURE == StringToFileWithCheck(tasks_file, string_prime, string_len_prime))
 	{
 		free(string_2);
+		free(string_buffer);
+		free(string_prime);
 		return STATUS_CODE_FAILURE;
 	}
 
