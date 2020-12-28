@@ -1,6 +1,36 @@
-﻿  fileManager.c
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(80,143): warning C4047: 'return': 'char *' differs in levels of indirection from 'int'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(83,115): warning C4047: 'return': 'char *' differs in levels of indirection from 'int'
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(98,18): warning C4018: '<': signed/unsigned mismatch
-C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(120,18): warning C4018: '<': signed/unsigned mismatch
+﻿  Lock.c
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Lock.c(188,10): warning C4101: 'release_res': unreferenced local variable
+  Queue.c
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(126,55): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(127,56): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(146,64): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(161,46): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(248,68): warning C4133: '=': incompatible types - from 'NODE *' to 'NODE *'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Queue.c(253,21): warning C4133: 'return': incompatible types - from 'NODE *' to 'QUEUE *'
+  fileManager.c
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(184,143): warning C4047: 'return': 'char *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(187,115): warning C4047: 'return': 'char *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(202,18): warning C4018: '<': signed/unsigned mismatch
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(224,18): warning C4018: '<': signed/unsigned mismatch
+  main.c
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(49,43): warning C4047: 'function': 'LPCSTR' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(49,40): warning C4024: 'GetFile': different types for formal and actual parameter 1
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(58,41): warning C4047: 'function': 'const char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(58,38): warning C4024: 'atoi': different types for formal and actual parameter 1
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(59,39): warning C4047: 'function': 'const char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(59,36): warning C4024: 'atoi': different types for formal and actual parameter 1
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(65,58): warning C4047: 'function': 'char **' differs in levels of indirection from 'char ***'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(65,54): warning C4024: 'check_arguments': different types for formal and actual parameter 2
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(73,92): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(73,89): warning C4024: 'InitializeQueue': different types for formal and actual parameter 4
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(97,146): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\main.c(97,143): warning C4024: 'dispatch_threads': different types for formal and actual parameter 7
+  threadManager.c
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(291,98): warning C4047: 'function': 'int *' differs in levels of indirection from 'int'
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(291,78): warning C4024: 'break_into_primes': different types for formal and actual parameter 3
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\threadManager.c(254,1): warning C4047: 'initializing': 'int' differs in levels of indirection from 'int *'
+  Generating Code...
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\fileManager.c(123): warning C4715: 'check_arguments': not all control paths return a value
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Lock.c(196): warning C4715: 'write_lock': not all control paths return a value
+C:\Users\neomi\source\repos\Operating_Systems_Ex_3\factori\Lock.c(210): warning C4715: 'queue_lock': not all control paths return a value
   factori.vcxproj -> C:\Users\neomi\source\repos\Operating_Systems_Ex_3\Debug\factori.exe

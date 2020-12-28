@@ -2,8 +2,7 @@
 /*
 threadManager.h
 ----------------------------------------------------------------------------
-Decryption or encryption of txt by key.
-Header file for decrypte.c
+All thread related actions header file
 */
 
 //-------------------------------------------------------------//
@@ -14,11 +13,15 @@ Header file for decrypte.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+//-------------------------------------------------------------//
+// ----------------------PROJECT INCLUDES--------------------- //
+//-------------------------------------------------------------//
+
 #include "Queue.h"
 #include "Lock.h"
 #include "fileManager.h"
 #include "HardCodedData.h"
-#include "io.h"
 
 
 //---------------------------------------------------------------//
@@ -26,44 +29,55 @@ Header file for decrypte.c
 //---------------------------------------------------------------//
 
 /*--------------------------------------------------------------------------------------------
-DESCRIPTION - Struct holding parameters to pass on to a new created thread.
+DESCRIPTION - A debug function to print out the wait error on a sync element
 
-PARAMETERS - key: for Caesar encryption
-             start: start point in file
-             end: end point in file
-             rows: number of row to read & write
-             in_file: input file ptr
-             out_file: output file ptr
+PARAMETERS -    wait_res - the result of waiting on the sync element
+                thread_num - the number of the thread, used for print
+                number_of_tasks - number of tasks to be pushed into the queue
+                priority_file_name - The name of the priority file for the WINAPI read function
+
+RETURN - void
+    --------------------------------------------------------------------------------------------*/
+void WaitError(DWORD wait_res, int thread_num);
+
+/*--------------------------------------------------------------------------------------------
+DESCRIPTION - A function to break an integer into primes
+
+PARAMETERS -    n - The integer to be broken down to primes
+                p_prime_numbers - a pointer to an array of integers where the primes will be stored
+                p_prime_numbers_size - a pointer to an outside variable where we get the number of primes. Will be updated in function for use of the calling function
+
+RETURN - a pointer to an array of integers where the primes are stored
     --------------------------------------------------------------------------------------------*/
 int* break_into_primes(int n, int* p_prime_numbers, int* p_prime_numbers_size);
 
 /*--------------------------------------------------------------------------------------------
-DESCRIPTION - Calls a wait for single obj on the newly created thread. when done executes free_thread_and_data
+DESCRIPTION - Calls a wait for multiple objects on an array with all of the running threads
 
-PARAMETERS - hThread: handle to the thread
-             pData: pointer to the data struct of that thread
+PARAMETERS - p_threads - an array of thread handles
+             number_of_threads - the number of threads to wait for
 
-RETURN - void
+RETURN - success code upon success or failure code otherwise
     --------------------------------------------------------------------------------------------*/
-void wait_for_threads_execution_and_free(HANDLE* p_threads, int number_of_threads);
+int wait_for_threads_execution_and_free(HANDLE* p_threads, int number_of_threads);
 
 /*--------------------------------------------------------------------------------------------
-DESCRIPTION - Counts the rows and assigns parameters for every thread to be created. then creates threads one by one.
+DESCRIPTION - the mother function which dispatches the threads and waits for them to finish their good work.
 
-PARAMETERS - in_file: input text file
-             out_file: output target file
-             key: For thr Caesar system coding
-             threads_required: Number of threads to assign. If there are mor threads than rows, the last ones will be created
-                               but do nothing.
-             rows_endings: Hold the length of every linr in the text
-             mode: e for encryption, d for decryption
+PARAMETERS - p_threads - a pointer to an array of handles holding all of the thread handles
+             p_lock - a pointer to the joint lock element
+             p_queue - a pointer to the joint queue element
+             number_of_threads - the number of threads specified by the user
+             p_number_of_tasks - a pointer to an integer with the number of tasks left. each thread is responsible to update it
+             start_line_sephamore - this is a joint semaphore used to send all of the threads on their way simultaneously
+             tasks_file_name - the name of the tasks file
 
-RETURN - status code
+RETURN - success code upon success or failure code otherwise
     --------------------------------------------------------------------------------------------*/
 int dispatch_threads(HANDLE* p_threads, LOCK* p_lock, QUEUE* p_queue, int number_of_threads, int* p_number_of_tasks, HANDLE* start_line_sephamore, char* tasks_file_name);
 
 /*--------------------------------------------------------------------------------------------
-DESCRIPTION - Function every new thread is called to. reads, encrypte\decrypte and writes every line assigned to that thread.
+DESCRIPTION - Function every new thread is called to. reads a task from the task file, breaks into primes and prints the correct string to the tasks file. uses a lock regiment as specified
 
 PARAMETERS - lpParam: holds the data structure of pData for that thread
 

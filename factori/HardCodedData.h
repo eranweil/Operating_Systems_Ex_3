@@ -1,24 +1,26 @@
+#pragma once
 /*
 HardCodedData.h
 ----------------------------------------------------------------------------
-Contains specific measured sizes and exit codes of the project. 
+Contains specific measured sizes, exit codes and structures of the project. 
 */
 
 
 //-------------------------------------------------------------//
 // --------------------------DEFINES-------------------------- //
 //-------------------------------------------------------------//
-#pragma once
 #include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <limits.h>
+#include <stdbool.h>
 
 // Exit codes
 #define SUCCESS_CODE							0 
 #define STATUS_CODE_FAILURE					   -1 
 #define ERROR_CODE_FILE						   -2
-#define ERROR_CODE_WRITE					   -3
+#define ERROR_CODE_HANDLE					   -3
 #define ERROR_CODE_ARGS						   -4
 #define ERROR_CODE_ALLOCATION				   -5
 #define ERROR_CODE_THREAD					   -6
@@ -26,18 +28,15 @@ Contains specific measured sizes and exit codes of the project.
 #define ERROR_CODE_WSO_WAIT_TIMEOUT			   -8
 #define ERROR_CODE_WSO_WAIT_FAILED			   -9
 
-
 // Bool
 #define TRUE									1 
 #define FALSE								    0
 
 // Sizes
-#define INITIAL_SIZE							10 //for line in the input file
 #define ARGS_REQUIRED							4
-#define THREAD_WAIT_TIME						30000
+#define THREAD_WAIT_TIME						3000
 
 // Structures
-
 struct node
 {
     int priority;

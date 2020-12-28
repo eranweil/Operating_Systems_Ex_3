@@ -15,16 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="io.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="threadManager.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowsFunctions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Queue.c">
@@ -39,9 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardCodedData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="threadManager.h">
